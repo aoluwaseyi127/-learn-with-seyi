@@ -1,0 +1,11 @@
+[build]
+  publish = "."
+  command = "node scripts/netlify-config.js"
+
+# LEARN_WITH_SEYI_API must be configured in Netlify's environment variables
+# with the public URL of the Railway/Render backend.
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin.html"
+  status = 200
