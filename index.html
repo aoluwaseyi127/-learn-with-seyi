@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Learn with Seyi</title>
+<title>Linguelle Academy</title>
 <style>
 :root{--bg:#f7f6f2;--card:#fff;--ink:#1b2430;--mut:#667085;--pri:#1f5eff;--acc:#ff6b4a;--ok:#12a150;--bad:#e5484d;--ln:#e6e3da}
 @media(prefers-color-scheme:dark){:root{--bg:#10141b;--card:#181e28;--ink:#eef1f6;--mut:#9aa4b5;--ln:#2a3342}}
@@ -12,6 +12,9 @@ button{font:inherit;cursor:pointer;border:1px solid var(--ln);background:var(--c
 button:hover{border-color:var(--pri);transform:translateY(-1px)}nav button{border:0;background:none}nav button.on,.tabs button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
 .pri{background:var(--pri);color:#fff;border-color:var(--pri)}.sm{padding:3px 9px}
 main{max-width:960px;margin:0 auto;padding:24px 18px 70px}
+.plan{text-align:center}.price{font-size:1.6rem;font-weight:800;color:var(--pri);margin:4px 0}.paybtn{display:inline-block;background:var(--pri);color:#fff;text-decoration:none;padding:10px 16px;border-radius:10px;font-weight:700}.payp .box{max-width:700px;margin-left:auto;margin-right:auto}.payp select,.payp input{width:100%;margin:6px 0;padding:10px;border-radius:10px;border:1px solid var(--ln);background:var(--card);color:var(--ink);font:inherit}.banktbl td{padding:4px 14px 4px 0}.lk{margin-left:6px}
+.link{background:none;border:0;color:var(--pri);text-decoration:underline;padding:8px 4px;cursor:pointer;font:inherit}
+body.authmode header{display:none}body.authmode main{padding-top:5vh}.authpage{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh}.authbrand{text-align:center}.authbrand h1{font-size:2.1rem;margin:0 0 6px}.authbrand h1 span{color:var(--pri)}.authbrand p{margin:0;color:var(--mut)}
 .hero{background:linear-gradient(135deg,var(--pri),#7b4dff 60%,var(--acc));color:#fff;border-radius:22px;padding:38px 28px}
 .hero h1{margin:0 0 8px;font-size:2.2rem}.hero p{margin:0 0 18px;max-width:600px;opacity:.93}.hero button{border:0;color:var(--pri);font-weight:700}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:18px 0}
@@ -79,7 +82,7 @@ input{font:inherit;width:100%;padding:11px 13px;margin:6px 0;border:1px solid va
 }
 
 </style></head><body>
-<header><div class="logo" data-a="home">Learn with <span>Seyi</span></div><nav id="nav"></nav><button id="dir" data-a="flip"></button><span class="badge" id="xp"></span><div id="usr"></div></header>
+<header><div class="logo" data-a="home">Linguelle <span>Academy</span></div><nav id="nav"></nav><button id="dir" data-a="flip"></button><span class="badge" id="xp"></span><div id="usr"></div></header>
 <main id="app"></main>
 <script src="/config.js"></script>
 <script>
@@ -174,7 +177,7 @@ const PR=['je','tu','il/elle','nous','vous','ils/elles'];
 // ---------- ENGINE ----------
 let dir=ls('dir')||'en',S={v:'home'},Q=null;const G={},TP={};
 const user=()=>ls('session'),users=()=>ls('users')||{},uid=()=>user()||'guest';
-const P=()=>Object.assign({xp:0,seen:{},best:{},exam:{},lvl:{},wr:{}},ls('p_'+uid())||{}),sv=p=>{ls('p_'+uid(),p);if(ONLINE&&ls('token')){clearTimeout(sv.t);sv.t=setTimeout(()=>api('/api/progress','PUT',p).catch(()=>{}),800)}};
+const P=()=>Object.assign({xp:0,seen:{},best:{},exam:{},lvl:{},wr:{}},ls('p_'+uid())||{}),sv=p=>{ls('p_'+uid(),p);report();if(ONLINE&&ls('token')){clearTimeout(sv.t);sv.t=setTimeout(()=>api('/api/progress','PUT',p).catch(()=>{}),800)}};
 function build(d){const T=[];LI.forEach(l=>{VOC[l].forEach((v,i)=>T.push({id:l+'v'+i,l,ic:v[0],ti:v[1],ty:'v',d:v[2]}));[[CLZ[d][l],'c'],[CLZ2[d][l],'g']].forEach(([c,k])=>T.push({id:l+k,l,ic:'🧩',ti:c[0],ty:'c',ru:c[1],po:c[2].split(','),d:c[3]}));const x=VRB[d][l];T.push({id:l+'x',l,ic:'🔤',ti:x[0],ty:'x',pr:d=='fr'?(x[1]||PR):null,d:x[x.length-1]})});return T}
 const T=()=>TP[dir]||(TP[dir]=build(dir)),byId=id=>T().find(t=>t.id==id);
 const fill=(s,w)=>{if(s.startsWith('___'))w=cap(w);return s.replace(/___( ?)/,(m,sp)=>w+(w.slice(-1)=="'"?'':sp))},cw=(s,w)=>s.startsWith('___')?cap(w):w,dis=(c,L)=>sh([...new Set(L.filter(z=>z!=c))]).slice(0,3);
@@ -203,18 +206,18 @@ if(t.ty=='x'&&dir=='fr')h=`<div class="box"><p>Conjugation tables — learn each
 return h+explain(t)+`<p class="mut">${tip}</p>`}
 function bestOf(t){const b=P().best[dir+t.id];return b==null?'':` · best ${b}%`}
 // ---------- VIEWS ----------
-const lvCard=l=>`<div class="card" data-a="level:${l[0]}"><span class="badge">${l[0]}</span><h3>${l[1]}</h3><p>${dir=='en'?l[2]+' · ':''}6 modules · 180 questions · writing lab · 60-question exam</p></div>`;
+const lvCard=l=>`<div class="card" data-a="level:${l[0]}"><span class="badge">${l[0]}</span>${lockTag(l[0])}<h3>${l[1]}</h3><p>${dir=='en'?l[2]+' · ':''}6 modules · 180 questions · writing lab · 60-question exam</p></div>`;
 const VIEW={
-home:()=>{const p=P();return `<div class="hero"><h1>${dir=='en'?'Learn English with Seyi':'Learn French with Seyi'}</h1><p>${dir=='en'?'Apprenez l’anglais de A1 à C1 : ':'Learn French from A1 to C1: '}${T().length} modules, ${T().length*30}+ practice questions, writing exercises, level exams, and a free placement test.</p><button data-a="place">🎯 Find my level</button> <button data-a="levels">Browse levels</button>${p.lvl[dir]?` <span class="badge">Your level: ${p.lvl[dir]}</span>`:''}</div>${user()?'':`<div class="note">Create a free account to save your progress. <button class="pri" data-a="authv:signup">Sign up</button> <button data-a="authv:login">Log in</button></div>`}<h2>Levels</h2><div class="grid">${LV.map(lvCard).join('')}</div><h2>How it works</h2><div class="grid"><div class="card" data-a="place"><div class="ico">🎯</div><h3>1. Placement</h3><p>20 questions find your level.</p></div><div class="card" data-a="levels"><div class="ico">📖</div><h3>2. Learn</h3><p>Lessons with tables, rules and audio.</p></div><div class="card" data-a="level:${p.lvl[dir]||'A1'}"><div class="ico">✍️</div><h3>3. Practise</h3><p>30 shuffled questions per module.</p></div><div class="card" data-a="prog"><div class="ico">🏆</div><h3>4. Exam</h3><p>60 questions to pass each level.</p></div></div>`},
-levels:()=>`<h2>Choose your level</h2><div class="grid">${LV.map(lvCard).join('')}</div>`,
+home:()=>{const p=P();return `<div class="hero"><h1>${dir=='en'?'Learn English with Linguelle Academy':'Learn French with Linguelle Academy'}</h1><p>${dir=='en'?'Apprenez l’anglais de A1 à C1 : ':'Learn French from A1 to C1: '}${T().length} modules, ${T().length*30}+ practice questions, writing exercises, level exams, and a free placement test.</p><button data-a="place">🎯 Find my level</button> <button data-a="levels">Browse levels</button>${p.lvl[dir]?` <span class="badge">Your level: ${p.lvl[dir]}</span>`:''}</div>${user()?'':`<div class="note">Create a free account to save your progress. <button class="pri" data-a="authv:signup">Sign up</button> <button data-a="authv:login">Log in</button></div>`}<h2>Levels</h2><div class="grid">${LV.map(lvCard).join('')}</div><h2>How it works</h2><div class="grid"><div class="card" data-a="place"><div class="ico">🎯</div><h3>1. Placement</h3><p>20 questions find your level.</p></div><div class="card" data-a="levels"><div class="ico">📖</div><h3>2. Learn</h3><p>Lessons with tables, rules and audio.</p></div><div class="card" data-a="level:${p.lvl[dir]||'A1'}"><div class="ico">✍️</div><h3>3. Practise</h3><p>30 shuffled questions per module.</p></div><div class="card" data-a="prog"><div class="ico">🏆</div><h3>4. Exam</h3><p>60 questions to pass each level.</p></div></div>`},
+levels:()=>`<h2>Choose your level</h2>${accessNote()}<div class="grid">${LV.map(lvCard).join('')}</div>`,
 level:()=>{const l=S.l,p=P(),ts=T().filter(t=>t.l==l),e=p.exam[dir+l],i=LI.indexOf(l);return `<h2>${l} · ${LV[i][1]}</h2><div class="tabs">${LI.map(x=>`<button class="${x==l?'on':''}" data-a="level:${x}">${x}</button>`).join('')}</div><h3>Modules</h3><div class="grid">${ts.map((t,k)=>`<div class="card" data-a="topic:${t.id}:lesson"><div class="ico">${t.ic}</div><p>Module ${k+1}</p><h3>${t.ti}</h3><p>${gen(t).length} questions${bestOf(t)}</p></div>`).join('')}<div class="card" data-a="writing:${l}"><div class="ico">✍️</div><p>Writing lab</p><h3>${WR[dir][l].length} exercises</h3><p>Write, check, compare with a model</p></div><div class="card" style="border-color:var(--acc)" data-a="exam:${l}"><div class="ico">🏆</div><p>Final test</p><h3>${l} Level exam</h3><p>60 questions${e!=null?` · best ${e}%`:''} · pass at 70%</p></div></div>`},
 topic:()=>{const t=byId(S.id),pool=gen(t),s=(P().seen['s'+dir+t.id]||[]).length%pool.length;return `<p><button data-a="level:${t.l}">← ${t.l} modules</button></p><h2>${t.ic} ${t.ti}</h2><div class="tabs"><button class="${S.tab=='lesson'?'on':''}" data-a="topic:${t.id}:lesson">📖 Lesson</button><button class="${S.tab=='practice'?'on':''}" data-a="topic:${t.id}:practice">✍️ Practice (${pool.length})</button></div>`+(S.tab=='lesson'?lesson(t)+`<p><button class="pri" data-a="topic:${t.id}:practice">Go to practice →</button></p>`:`<div class="box"><p>${pool.length} questions in this module${bestOf(t)}. Seen in current cycle: ${s}/${pool.length}.</p><p><button class="pri" data-a="set:${t.id}">▶ 10-question set (no repeats)</button> <button data-a="full:${t.id}">All ${pool.length} questions</button> <button data-a="topic:${t.id}:lesson">Review lesson</button></p></div>`)},
 quiz:()=>Q?ask():VIEW.home(),
 place:()=>`<h2>Placement test</h2><div class="box"><p>20 questions, 4 per level from A1 to C1, all shuffled. Answer without help and we will estimate your level.</p><button class="pri" data-a="startplace">Start the test</button> ${P().lvl[dir]?`<span class="badge">Last result: ${P().lvl[dir]}</span>`:''}</div>`,
 prog:()=>{const p=P(),u=user();return `<h2>${u?'👤 '+esc((users()[u]||{}).name||u):'Guest progress'}</h2><p>⭐ ${p.xp} points · Placement: ${p.lvl[dir]||'not taken'} ${p.lvl[dir]?'':`<button class="sm" data-a="place">Take it</button>`}</p>${u?'':`<div class="note">Progress is saved on this device. <button class="pri" data-a="authv:signup">Create account</button></div>`}${LI.map(l=>`<div class="box"><h3 data-a="level:${l}" style="cursor:pointer">${l} →</h3>${T().filter(t=>t.l==l).map(t=>`<p><button class="sm" data-a="topic:${t.id}:lesson">${t.ic} ${t.ti}</button> ${p.best[dir+t.id]!=null?p.best[dir+t.id]+'%':'<span class="mut">not started</span>'}</p>`).join('')}<p>🏆 Exam: ${p.exam[dir+l]!=null?p.exam[dir+l]+'%'+(p.exam[dir+l]>=70?' ✅ passed':''):'<span class="mut">not taken</span>'} <button class="sm" data-a="exam:${l}">Take exam</button></p></div>`).join('')}`},
-auth:()=>{const s=S.tab=='signup';return `<div class="box" style="max-width:440px;margin:auto"><div class="tabs"><button class="${s?'':'on'}" data-a="authv:login">Log in</button><button class="${s?'on':''}" data-a="authv:signup">Sign up</button></div>${s?'<input id="nm" placeholder="Your name">':''}<input id="em" type="email" placeholder="Email"><input id="pw" type="password" placeholder="Password (6+ characters)">${s?'<input id="pw2" type="password" placeholder="Confirm password">':''}<div class="err" id="msg"></div><button class="pri" data-a="${s?'signup':'login'}">${s?'Create account':'Log in'}</button><p class="mut">${ONLINE?'🟢 Connected to the Learn with Seyi server: your account and progress are saved online.':'🟠 Offline demo mode: accounts are stored in this browser only. Start server.js for real accounts.'}</p></div>`}};
+auth:()=>{if(['verify','forgot','reset'].includes(S.tab))return authExtra();const s=S.tab=='signup';return `<div class="authpage"><div class="authbrand"><h1>Linguelle <span>Academy</span></h1><p>Learn English or French, from A1 to C1</p></div><div class="box" style="max-width:440px;width:100%;margin:12px auto"><div class="tabs"><button class="${s?'':'on'}" data-a="authv:login">Log in</button><button class="${s?'on':''}" data-a="authv:signup">Sign up</button></div>${s?'<input id="nm" placeholder="Your name">':''}<input id="em" type="email" placeholder="Email"><input id="pw" type="password" placeholder="Password (6+ characters)">${s?'<input id="pw2" type="password" placeholder="Confirm password">':''}<div class="err" id="msg"></div><button class="pri" data-a="${s?'signup':'login'}">${s?'Create account':'Log in'}</button>${ONLINE&&!s?' <button class="link" data-a="authv:forgot">Forgot password?</button>':''}<p class="mut">${ONLINE?'🟢 Your account and progress are saved online, so you can log in on any device.':(window.LEARN_WITH_SEYI_SHEET?'📱 Your account is saved on this device, and your progress is shared with your teacher.':'🟠 Offline demo mode: accounts are stored in this browser only. Start server.js for real accounts.')}</p></div></div>`}};
 function go(v,o){S=Object.assign({v},o||{});if(v!='quiz')Q=null;render()}
-function render(){$('#dir').textContent=dir=='en'?'🇫🇷→🇬🇧 Learn English':'🇬🇧→🇫🇷 Learn French';const u=user();$('#xp').textContent='⭐ '+P().xp;
+function render(){if(!user()&&S.v!='auth')S={v:'auth',tab:'login'};if(user()&&payOn()){if(ACC.email!==user())refreshAccess();const L=viewLevel();if(L&&!hasLevel(L))S={v:'locked',l:L,back:S};else if(S.v=='locked'&&hasLevel(S.l))S=S.back||{v:'level',l:S.l}}document.body.classList.toggle('authmode',S.v=='auth');$('#dir').textContent=dir=='en'?'🇫🇷→🇬🇧 Learn English':'🇬🇧→🇫🇷 Learn French';const u=user();$('#xp').textContent='⭐ '+P().xp;
 $('#nav').innerHTML=[['home','Home'],['levels','Levels'],['place','Placement'],['prog','Progress']].map(([k,n])=>`<button class="${S.v==k?'on':''}" data-a="${k}">${n}</button>`).join('');
 $('#usr').innerHTML=u?`<button data-a="prog">👤 ${esc((users()[u]||{}).name||u)}</button>${ls('lws_role')==='admin'?'<button data-a="admin">⚙️ Admin</button>':''}<button data-a="logout">Log out</button>`:`<button class="pri" data-a="authv:login">Log in / Sign up</button>`;
 $('#app').innerHTML=VIEW[S.v]();scrollTo(0,0)}
@@ -237,8 +240,9 @@ signup:()=>{const n=$('#nm').value.trim(),e=$('#em').value.trim().toLowerCase(),
 login:()=>{const e=$('#em').value.trim().toLowerCase(),u=users()[e];if(!u||u.h!=hash($('#pw').value))return msg('Incorrect email or password.');ls('session',e);go('home')},
 logout:()=>{ls('session',null);go('home')}};
 function tfin(t){return(s,n)=>{const pc=Math.round(s/n*100),p=P();p.best[dir+t.id]=Math.max(p.best[dir+t.id]||0,pc);sv(p);return `<p>${pc>=80?'🌟 Excellent!':pc>=50?'👍 Good progress.':'Keep practising — review the lesson.'}</p><button class="pri" data-a="set:${t.id}">Another 10 (new questions)</button> <button data-a="topic:${t.id}:lesson">Review lesson</button> <button data-a="level:${t.l}">Back to modules</button>`}}
-let ONLINE=false;const API=(window.LEARN_WITH_SEYI_API||'').replace(/\/$/,'');
-async function api(p,m,b){const t=ls('token'),r=await fetch(API+p,{method:m||'GET',headers:Object.assign({'Content-Type':'application/json'},t?{Authorization:'Bearer '+t}:{}),body:b?JSON.stringify(b):undefined}),j=await r.json();if(!r.ok)throw new Error(j.error||'Error');return j}
+let ONLINE=false;const API=(window.LEARN_WITH_SEYI_API||'').replace(/\/$/,''),SHEETAPI=!API&&!!window.LEARN_WITH_SEYI_SHEET;
+async function api(p,m,b){if(SHEETAPI){const route=p.replace(/^\/api\//,''),body=Object.assign({route,method:m||'GET',token:ls('token')||''},route=='progress'&&m=='PUT'?{progress:b,summary:summarize(b)}:(b||{})),r=await fetch(window.LEARN_WITH_SEYI_SHEET,{method:'POST',body:JSON.stringify(body)}),j=await r.json();if(j&&j.error){const e=new Error(j.error);e.code=j.code;throw e}return j}
+const t=ls('token'),r=await fetch(API+p,{method:m||'GET',headers:Object.assign({'Content-Type':'application/json'},t?{Authorization:'Bearer '+t}:{}),body:b?JSON.stringify(b):undefined}),j=await r.json();if(!r.ok)throw new Error(j.error||'Error');return j}
 const explain=t=>{const x=EXP[dir][t.id]||EXP[dir][t.id.slice(-1)];return x?`<div class="box"><h3>📝 ${dir=='en'?'Explication détaillée':'Detailed explanation'}</h3>${x}</div>`:''};
 const WS=(l,i)=>WR[dir][l][i],wcount=s=>s.trim().split(/\s+/).filter(Boolean).length;
 VIEW.writing=()=>`<p><button data-a="level:${S.l}">← ${S.l} modules</button></p><h2>✍️ Writing lab · ${S.l}</h2><div class="grid">${WR[dir][S.l].map((w,i)=>`<div class="card" data-a="write:${S.l}:${i}"><h3>Exercise ${i+1}</h3><p>${esc(w[0])}</p><p>${w[1]}+ words${P().wr[dir+S.l+i]?' · ✅ saved':''}</p></div>`).join('')}</div>`;
@@ -250,11 +254,86 @@ submit:(l,i)=>{const e=evalW(l,+i),p=P(),k=dir+l+i,first=!p.wr[k];p.wr[k]={text:
 model:(l,i)=>{$('#wres').innerHTML=`<div class="ex"><b>Model answer</b><p>${esc(WS(l,+i)[3])}</p></div>`}});
 document.addEventListener('input',e=>{if(e.target.id=='wt')$('#wc').textContent=wcount(e.target.value)});
 const L0={s:A.signup,l:A.login,o:A.logout};
-async function authDone(e,j){ls('session',e);ls('token',j.token);ls('lws_role',j.role||'student');const u=users();u[e]={name:j.name};ls('users',u);const sp=j.progress||{};if(Object.keys(sp).length)ls('p_'+e,sp);else{const g=ls('p_'+e)||ls('p_guest');if(g){ls('p_'+e,g);api('/api/progress','PUT',g).catch(()=>{})}}go('home')}
-A.signup=async()=>{if(!ONLINE)return L0.s();const n=$('#nm').value.trim(),e=$('#em').value.trim().toLowerCase(),p=$('#pw').value;if(p!=$('#pw2').value)return msg('Passwords do not match.');try{await authDone(e,await api('/api/signup','POST',{name:n,email:e,password:p}))}catch(x){msg(x.message)}};
-A.login=async()=>{if(!ONLINE)return L0.l();const e=$('#em').value.trim().toLowerCase();try{await authDone(e,await api('/api/login','POST',{email:e,password:$('#pw').value}))}catch(x){msg(x.message)}};
+const note=t=>{const m=$('#msg');m.style.color='var(--ok)';m.textContent=t};
+const afterSignup=(e,j)=>j&&j.needsVerify?go('auth',{tab:'verify',email:e}):authDone(e,j);
+function authExtra(){const e=esc(S.email||''),n=S.notice?`<p class="mut">${esc(S.notice)}</p>`:'',box=h=>`<div class="authpage"><div class="authbrand"><h1>Linguelle <span>Academy</span></h1><p>Learn English or French, from A1 to C1</p></div><div class="box" style="max-width:440px;width:100%;margin:12px auto">${h}</div></div>`;
+if(S.tab=='forgot')return box(`<h3>Forgot your password?</h3><p class="mut">Enter your email and we will send you a 6-digit code.</p><input id="em" type="email" placeholder="Email" value="${e}"><div class="err" id="msg"></div><button class="pri" data-a="forgot">Send code</button> <button data-a="authv:login">Back</button>`);
+if(S.tab=='verify')return box(`<h3>Confirm your email</h3><p class="mut">We sent a 6-digit code to <b>${e}</b>. Enter it below. If you cannot see the email, check your spam folder.</p>${n}<input id="cd" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="6-digit code"><div class="err" id="msg"></div><button class="pri" data-a="verify">Confirm</button> <button data-a="resend:signup">Send a new code</button> <button data-a="authv:login">Back</button>`);
+return box(`<h3>Choose a new password</h3><p class="mut">If <b>${e}</b> has an account, we sent a 6-digit code to it. Enter the code and your new password.</p>${n}<input id="cd" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="6-digit code"><input id="pw" type="password" placeholder="New password (6+ characters)"><input id="pw2" type="password" placeholder="Confirm new password"><div class="err" id="msg"></div><button class="pri" data-a="reset">Save new password</button> <button data-a="resend:reset">Send a new code</button> <button data-a="authv:login">Back</button>`)}
+A.forgot=async()=>{const e=$('#em').value.trim().toLowerCase();if(!e)return msg('Enter your email.');try{await api('/api/forgot','POST',{email:e});go('auth',{tab:'reset',email:e})}catch(x){msg(x.message)}};
+A.verify=async()=>{const c=$('#cd').value.trim();if(!c)return msg('Enter the 6-digit code.');try{await authDone(S.email,await api('/api/verify','POST',{email:S.email,code:c}))}catch(x){msg(x.message)}};
+A.reset=async()=>{const c=$('#cd').value.trim(),p=$('#pw').value;if(!c)return msg('Enter the 6-digit code.');if(p.length<6)return msg('Password needs 6+ characters.');if(p!=$('#pw2').value)return msg('Passwords do not match.');try{await authDone(S.email,await api('/api/reset','POST',{email:S.email,code:c,password:p}))}catch(x){msg(x.message)}};
+A.resend=async(purpose)=>{try{await api('/api/resend','POST',{email:S.email,purpose});note('A new code is on its way.')}catch(x){msg(x.message)}};
+async function authDone(e,j){if(j&&j.registered)ls('reg_'+e,1);ls('session',e);ls('token',j.token);ls('lws_role',j.role||'student');const u=users();u[e]={name:j.name};ls('users',u);const sp=j.progress||{};if(Object.keys(sp).length)ls('p_'+e,sp);else{const g=ls('p_'+e)||ls('p_guest');if(g){ls('p_'+e,g);api('/api/progress','PUT',g).catch(()=>{})}}go('home')}
+A.signup=async()=>{if(!ONLINE)return L0.s();const n=$('#nm').value.trim(),e=$('#em').value.trim().toLowerCase(),p=$('#pw').value;if(p!=$('#pw2').value)return msg('Passwords do not match.');try{await afterSignup(e,await api('/api/signup','POST',{name:n,email:e,password:p}))}catch(x){msg(x.message)}};
+A.login=async()=>{if(!ONLINE)return L0.l();const e=$('#em').value.trim().toLowerCase(),pw=$('#pw').value;try{await authDone(e,await api('/api/login','POST',{email:e,password:pw}))}catch(x){if(x.code=='UNVERIFIED')go('auth',{tab:'verify',email:e,notice:x.message});else if(x.code=='NOACCOUNT'&&users()[e]){try{L0.l();if(user()==e){const j=await api('/api/signup','POST',{name:users()[e].name,email:e,password:pw});ls('session',null);await afterSignup(e,j)}}catch(y){msg(y.message)}}else msg(x.message)}};
 A.logout=async()=>{try{if(ONLINE&&ls('token'))await api('/api/logout','POST')}catch(e){}ls('token',null);ls('lws_role',null);L0.o()};
+const PAY=()=>window.LWS_PAYMENTS||{};
+const payOn=()=>!!(PAY().enabled&&window.LEARN_WITH_SEYI_SHEET);
+let ACC={email:null,levels:[],until:null,ended:null,state:'idle'};
+const fmtDate=d=>new Date(d+'T12:00:00').toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'});
+function hasLevel(l){return !payOn()||(ACC.email===user()&&(ACC.levels.includes('ALL')||ACC.levels.includes(l)))}
+const lockTag=l=>payOn()&&user()&&!hasLevel(l)?'<span class="lk" title="Locked">🔒</span>':'';
+function accessNote(){if(!payOn()||ACC.email!==user())return '';if(ACC.levels.length&&ACC.until)return `<p class="mut">✅ Full access until <b>${fmtDate(ACC.until)}</b>. Pay again before then to keep learning.</p>`;if(!ACC.levels.length&&ACC.ended)return `<p class="err">Your access ended on ${fmtDate(ACC.ended)}. Open any level to renew.</p>`;return ''}
+function viewLevel(){if(['level','writing','write'].includes(S.v))return S.l;if(S.v=='topic'){const t=byId(S.id);return t&&t.l}return null}
+async function refreshAccess(){
+const e=user();if(!e||!payOn()||ACC.state=='checking')return;
+const c=ls('acc_'+e),okc=!!(c&&Array.isArray(c.levels)&&Date.now()-(c.t||0)<6048e5);
+ACC={email:e,levels:okc?c.levels:[],until:okc?c.until||null:null,ended:okc?c.ended||null:null,state:'checking'};
+let r;
+try{const res=await fetch(window.LEARN_WITH_SEYI_SHEET+'?action=status&email='+encodeURIComponent(e));r=await res.json();if(!Array.isArray(r.levels))throw 0;ls('acc_'+e,{levels:r.levels,until:r.until||null,ended:r.ended||null,t:Date.now()})}
+catch(x){r=okc?{levels:c.levels,until:c.until,ended:c.ended}:{levels:[],error:true}}
+if(user()!==e)return;
+const same=okc&&JSON.stringify([c.levels,c.until||null,c.ended||null])==JSON.stringify([r.levels,r.until||null,r.ended||null]);
+ACC={email:e,levels:r.levels,until:r.until||null,ended:r.ended||null,state:r.error?'error':'done'};
+if(!same||S.v=='locked'||S.v=='levels')render()}
+const LVN={A1:'Complete beginner (A1)',A2:'Elementary (A2)',B1:'Intermediate (B1)',B2:'Upper-intermediate (B2)',C1:'Advanced (C1)'};
+VIEW.locked=()=>{const P_=PAY(),pl=P_.plan||{},e=user(),u=users()[e]||{};
+if(ACC.state=='checking')return `<div class="box"><h2>Linguelle Academy</h2><p class="mut">Checking your access…</p></div>`;
+const price=esc(pl.price||''),back='<p><button data-a="levels">← All levels</button></p>',saved=ls('regdata_'+e)||{};
+if(!ls('reg_'+e)||S.edit){const v=k=>esc(saved[k]||'');
+return `<div class="payp">${back}<div class="box"><h2>Register for Linguelle Academy</h2><p class="mut">Step 1 of 2 · Tell us about you. Next you will pay <b>${price}</b> for full access to every level, A1 to C1.</p>
+<label class="mut">Full name</label><input id="rn" value="${esc(saved.name||u.name||'')}">
+<label class="mut">Phone or WhatsApp number</label><input id="rp" type="tel" placeholder="+44 …" value="${v('phone')}">
+<label class="mut">Country</label><input id="rc" value="${v('country')}">
+<label class="mut">Language you want to learn</label><select id="rl">${['English','French','Both'].map(x=>`<option ${saved.language==x?'selected':''}>${x}</option>`).join('')}</select>
+<label class="mut">Your current level</label><select id="rv">${Object.values(LVN).concat(['Not sure']).map(x=>`<option ${saved.level==x?'selected':''}>${x}</option>`).join('')}</select>
+<label class="mut">Preferred days and times (with your time zone)</label><input id="ra" placeholder="e.g. weekday evenings, UK time" value="${v('times')}">
+<label class="mut">Your goals, or anything we should know</label><textarea id="rg" rows="3" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--ln);background:var(--card);color:var(--ink);font:inherit">${v('goals')}</textarea>
+<label style="display:block;margin:10px 0"><input id="rk" type="checkbox" style="width:auto;margin-right:8px">I understand the price is ${price}.</label>
+<div class="err" id="rmsg"></div><button class="pri" data-a="register">Continue to payment</button></div></div>`}
+const bank=(P_.bank||[]).filter(r=>r[1]).map(r=>`<tr><td class="mut">${esc(r[0])}</td><td><b>${esc(r[1])}</b></td></tr>`).join('');
+const none=!pl.cardLink&&!bank;
+return `<div class="payp">${back}
+${ACC.state=='error'?'<div class="box"><p class="err">We could not check your access. Check your internet connection, then press “Check my access”.</p></div>':''}
+${ACC.ended?`<div class="box"><p class="err">Your access ended on ${fmtDate(ACC.ended)}. Pay for another month below to continue.</p></div>`:''}
+<div class="box plan"><div style="font-size:2rem">🔒</div><h2>${esc(pl.name||'Monthly access')}</h2><p class="mut">${esc(pl.description||'Full access to every level, A1 to C1')}</p><div class="price">${price}</div><p class="mut">Step 2 of 2 · Choose how to pay</p>${pl.cardLink?`<a class="paybtn" href="${esc(pl.cardLink)}" target="_blank" rel="noopener">💳 Pay by card</a>`:''}${none?'<p class="mut">Payment details are not set up yet.</p>':''}</div>
+${bank?`<div class="box"><h3>🏦 Pay by bank transfer</h3><table class="banktbl">${bank}</table><p class="mut">${esc(P_.bankNote||'Use the email you signed up with as the payment reference.')}</p></div>`:''}
+<div class="box"><h3>✅ Already paid?</h3><p class="mut">Tell us how you paid. We will unlock your account as soon as we confirm your payment. We match your payment using the name or reference you enter below.</p>
+<select id="pm"><option>Card</option><option>Bank transfer</option></select>
+<input id="pr" placeholder="Payment reference, or the name on the transfer"><div class="err" id="pmsg"></div>
+<button class="pri" data-a="paid">I’ve paid</button> <button data-a="recheck">Check my access</button> <button class="link" data-a="editreg">Edit my details</button></div></div>`};
+A.register=async()=>{const e=user(),m=$('#rmsg'),g=i=>$('#'+i).value.trim();
+const d={name:g('rn'),phone:g('rp'),country:g('rc'),language:$('#rl').value,level:$('#rv').value,times:g('ra'),goals:g('rg')};
+if(!d.name)return m.textContent='Please enter your name.';if(!d.phone)return m.textContent='Please enter a phone or WhatsApp number.';if(!d.country)return m.textContent='Please enter your country.';if(!$('#rk').checked)return m.textContent='Please tick the box to continue.';
+m.textContent='';
+try{if(ONLINE&&ls('token'))await api('/api/register','POST',d);else fetch(window.LEARN_WITH_SEYI_SHEET,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(Object.assign({type:'registration',email:e},d))}).catch(()=>{});
+ls('reg_'+e,1);ls('regdata_'+e,d);S.edit=false;render()}catch(x){m.textContent=x.message}};
+A.editreg=()=>{S.edit=true;render()};
+A.paid=()=>{const e=user(),u=users()[e]||{},ref=$('#pr').value.trim(),m=$('#pmsg');
+if(!ref){m.style.color='';m.textContent='Please add your payment reference or the name used for the payment.';return}
+try{fetch(window.LEARN_WITH_SEYI_SHEET,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({type:'payment',email:e,name:u.name||'',level:'ALL',method:$('#pm').value,ref})}).catch(()=>{})}catch(x){}
+m.style.color='var(--ok)';m.textContent='Thank you! We will unlock your account once your payment is confirmed. Then press “Check my access”.'};
+A.recheck=()=>{ACC={email:null,levels:[],until:null,ended:null,state:'idle'};render()};
+{const ex=A.exam;A.exam=function(l){if(!hasLevel(l)){go('locked',{l});return}return ex.apply(this,arguments)}}
+{const lo=A.logout;A.logout=async function(){ACC={email:null,levels:[],until:null,ended:null,state:'idle'};return lo.apply(this,arguments)}}
 document.addEventListener('click',e=>{const el=e.target.closest('[data-a]');if(!el)return;const[a,...r]=el.dataset.a.split(':');if(A[a])A[a](...r)});
 render();
-fetch(API+'/api/ping').then(r=>r.json()).then(j=>{if(j.ok){ONLINE=true;if(S.v=='auth')render()}}).catch(()=>{});
+function summarize(p){p=p||{};const best=p.best||{},exam=p.exam||{},wr=p.wr||{},L=['en','fr'],V=['A1','A2','B1','B2','C1'],ms={};
+L.forEach(l=>{const k=Object.keys(best).filter(x=>x.startsWith(l));ms[l]={completed:k.filter(x=>Number(best[x])>=50).length,average:k.length?Math.round(k.reduce((a,x)=>a+(Number(best[x])||0),0)/k.length):0}});
+const all=L.flatMap(l=>Object.keys(best).filter(x=>x.startsWith(l))),done=all.filter(x=>Number(best[x])>=50).length,total=60,ex=L.flatMap(l=>V.map(v=>exam[l+v]));
+return{xp:Number(p.xp||0),placement:p.lvl||{},modulesCompleted:done,modulesTotal:total,completion:Math.round(done/total*100),examsTaken:ex.filter(v=>v!=null).length,examsPassed:ex.filter(v=>Number(v)>=70).length,writingCompleted:Object.keys(wr).length,enAvg:ms.en.average,frAvg:ms.fr.average}}
+function report(){const url=window.LEARN_WITH_SEYI_SHEET;if(!url||ONLINE)return;clearTimeout(report.t);report.t=setTimeout(()=>{try{const e=user();if(!e)return;const p=P(),u=users()[e]||{};fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({email:e,name:u.name||'',summary:summarize(p),progress:p})}).catch(()=>{})}catch(x){}},1500)}
+['signup','login'].forEach(k=>{const o=A[k];A[k]=async function(){const r=await o.apply(this,arguments);report();return r}});
+fetch(SHEETAPI?window.LEARN_WITH_SEYI_SHEET+'?action=ping':API+'/api/ping').then(r=>r.json()).then(j=>{if(j.ok){ONLINE=true;if(S.v=='auth')render()}}).catch(()=>{});
 </script></body></html>
